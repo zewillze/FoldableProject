@@ -5,24 +5,38 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React from 'react';
 
-function App() {
+import {
+  Platform,
+  SafeAreaView,
+  Text,
+  useColorScheme,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+
+
+
+function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
+  const dimension = useWindowDimensions();
+
+  const { width, height } = dimension;
+  const info = `Android-API:${Platform.Version}\nwidth: ${width}\n height: ${height}`
+
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, top: 100 }}>
+        <Text style={{ alignSelf: 'center', alignContent: 'center', fontSize: 30 }}>
+          {info}
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+
 
 export default App;
